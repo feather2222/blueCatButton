@@ -76,7 +76,7 @@ final class ViewController: UIViewController {
 
 ```swift
 let theme = BlueCatButton.theme(for: .primary)
-+actionButton.applyTheme(theme, followSystem: true)
+actionButton.applyTheme(theme, followSystem: true)
 ```
 
 ### 多状态 Style
