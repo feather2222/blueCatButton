@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "blueCatButton"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "Lightweight GradientButton with countdown and click animation."
   s.description  = <<-DESC
 A lightweight UI component providing a customizable GradientButton with gradient direction,

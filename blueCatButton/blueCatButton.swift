@@ -333,7 +333,7 @@ public final class BlueCatButton: UIButton {
     private let gradientTextLayer = CAGradientLayer()
     private let gradientTextMask = CATextLayer()
     private let badgeLabel = UILabel()
-    private let activityIndicator = UIActivityIndicatorView(style: .medium)
+    private let activityIndicator = UIActivityIndicatorView(style: .white)
     private var countdownTimer: Timer?
     private var remainingSeconds: Int = 0
     private var countdownSuffix: String = "s"
@@ -401,6 +401,9 @@ public final class BlueCatButton: UIButton {
         
         activityIndicator.hidesWhenStopped = true
         activityIndicator.color = loadingIndicatorColor
+        if #available(iOS 13.0, *) {
+            activityIndicator.style = .medium
+        }
         addSubview(activityIndicator)
         
         addTarget(self, action: #selector(handleTouchDown), for: .touchDown)
@@ -591,7 +594,7 @@ public final class BlueCatButton: UIButton {
         contentHorizontalAlignment = alignment
     }
     
-    @MainActor
+    @available(iOS 13.0, *)
     public func performLoadingTask(_ task: @escaping () async -> Void) {
         isLoading = true
         Task { [weak self] in
@@ -635,10 +638,17 @@ public final class BlueCatButton: UIButton {
                 dark: Style(gradientColors: [UIColor.systemRed, UIColor.systemPurple])
             )
         case .neutral:
-            return Theme(
-                light: Style(gradientColors: [UIColor.systemGray4, UIColor.systemGray2]),
-                dark: Style(gradientColors: [UIColor.systemGray, UIColor.systemGray2])
-            )
+            if #available(iOS 13.0, *) {
+                return Theme(
+                    light: Style(gradientColors: [UIColor.systemGray4, UIColor.systemGray2]),
+                    dark: Style(gradientColors: [UIColor.systemGray, UIColor.systemGray2])
+                )
+            } else {
+                return Theme(
+                    light: Style(gradientColors: [UIColor.lightGray, UIColor.gray]),
+                    dark: Style(gradientColors: [UIColor.darkGray, UIColor.gray])
+                )
+            }
         }
     }
     
